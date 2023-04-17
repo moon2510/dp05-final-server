@@ -20,6 +20,7 @@ const NotificationSchema = new Schema(
 
     description: {
       type: String,
+      default: '',
     },
 
     channel: {

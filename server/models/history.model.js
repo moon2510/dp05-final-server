@@ -18,6 +18,7 @@ const HistorySchema = new Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
+        default: [],
       },
     ],
 
@@ -25,6 +26,7 @@ const HistorySchema = new Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
+        default: [],
       },
     ],
 
@@ -51,6 +53,7 @@ const HistorySchema = new Schema(
     typeLog: {
       type: String,
       enum: Object.values(TypeHistory),
+      default: '',
     },
 
     contentLog: {

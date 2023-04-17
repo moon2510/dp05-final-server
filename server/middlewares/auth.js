@@ -9,7 +9,6 @@ const auth = async (req, res, next) => {
 
         const decoded = jsonwebtoken.verify(token, "DP05")
         if(!decoded) return res.status(400).json({msg: "Invalid Authentication."})
-        console.log(decoded)
         const user = await UserSchema.findOne({_id: decoded.id})
         if(!user) return res.status(400).json({msg: "Invalid Authentication."})
         

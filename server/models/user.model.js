@@ -1,44 +1,44 @@
-const mongoose = require("mongoose");
-const { Role } = require("../constants/enum");
+const mongoose = require('mongoose');
+const { Role } = require('../constants/enum');
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
   {
     fullName: {
       type: String,
-      default: "",
+      default: '',
     },
 
     phone: {
       type: String,
-      default: "",
+      default: '',
     },
 
     email: {
       type: String,
       unique: true,
-      default: "",
+      default: '',
     },
 
     password: {
       type: String,
-      default: "",
+      default: '',
     },
 
-    IDstaff: {
+    staffId: {
       type: String,
-      default: "",
+      default: '',
     },
 
     avatar: {
       type: String,
-      default: "",
+      default: '',
     },
 
     groupsId: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "usergroups",
+        ref: 'usergroups',
       },
     ],
 
@@ -53,4 +53,4 @@ const UserSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model("User", UserSchema, "users");
+module.exports = mongoose.model('User', UserSchema, 'users');

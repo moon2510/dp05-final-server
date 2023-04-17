@@ -13,7 +13,7 @@ const WorkSpaceSchema = new mongoose.Schema(
       },
     ],
 
-    dayoffChannel: [
+    dayOffChannel: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'channels',

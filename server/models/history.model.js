@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const HistorySchema = new Schema(
   {
-    logoffId: {
+    logOffId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'requestlogoffs',
     },
@@ -28,11 +28,11 @@ const HistorySchema = new Schema(
       },
     ],
 
-    logoffFrom: {
+    logOffFrom: {
       type: Date,
     },
 
-    logoffTo: {
+    logOffTo: {
       type: Date,
     },
 

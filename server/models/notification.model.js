@@ -13,7 +13,7 @@ const NotificationSchema = new Schema(
       ref: 'users',
     },
 
-    logoff: {
+    logOff: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'requestlogoffs',
     },

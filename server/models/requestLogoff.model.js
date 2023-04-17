@@ -13,6 +13,7 @@ const RequestLogOffSchema = new Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
+        default: [],
       },
     ],
 
@@ -20,36 +21,44 @@ const RequestLogOffSchema = new Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
+        default: [],
       },
     ],
 
     logoffFrom: {
-      type: Date,
+      type: String,
+      default: '',
     },
 
     logoffTo: {
-      type: Date,
+      type: String,
+      default: '',
     },
 
     logoffType: {
       type: String,
+      default: '',
     },
 
     contentLog: {
       type: String,
+      default: '',
     },
 
     quantity: {
       type: Number,
+      default: 0,
     },
 
     reason: {
       type: String,
+      default: '',
     },
 
     status: {
       type: String,
       enum: Object.values(RequestSTT),
+      default: '',
     },
   },
   {

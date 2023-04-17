@@ -5,9 +5,11 @@ const ChannelSchema = new Schema(
   {
     name: {
       type: String,
+      required: true,
     },
     slackId: {
       type: String,
+      default: '',
     },
   },
   {

@@ -9,5 +9,6 @@ router.get("/", function (req, res, next) {
 
 router.post("/register", UserController.register);
 router.post("/login", UserController.login);
+router.post('/refresh_token', UserController.getRefreshToken)
 
 module.exports = router;

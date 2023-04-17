@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 const UserController = {
   register: async (req, res) => {
     try {
-      const { fullName, phone, email, IDstaff, avatar, groupId, role } =
+      const { fullName, phone, email, slackId, avatar, groupsId, role } =
         req.body;
 
       const user = await Users.findOne({ email });
@@ -20,9 +20,9 @@ const UserController = {
         fullName,
         phone,
         email,
-        IDstaff,
+        slackId,
         avatar,
-        groupId,
+        groupsId,
         role,
         password: passwordHash,
       });

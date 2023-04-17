@@ -29,19 +29,23 @@ const HistorySchema = new Schema(
     ],
 
     logOffFrom: {
-      type: Date,
+      type: String,
+      default: '',
     },
 
     logOffTo: {
-      type: Date,
+      type: String,
+      default: '',
     },
 
     reason: {
       type: String,
+      default: '',
     },
 
     comment: {
       type: String,
+      default: '',
     },
 
     typeLog: {
@@ -51,10 +55,12 @@ const HistorySchema = new Schema(
 
     contentLog: {
       type: String,
+      default: '',
     },
 
     quantity: {
       type: Number,
+      default: 0,
     },
   },
   {

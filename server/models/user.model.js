@@ -25,7 +25,7 @@ const UserSchema = new Schema(
       default: '',
     },
 
-    staffId: {
+    slackId: {
       type: String,
       default: '',
     },

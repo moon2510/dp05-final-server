@@ -39,7 +39,6 @@ const UserSchema = new Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'usergroups',
-        default: [],
       },
     ],
 

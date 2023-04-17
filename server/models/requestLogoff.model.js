@@ -25,17 +25,17 @@ const RequestLogOffSchema = new Schema(
       },
     ],
 
-    logoffFrom: {
+    logOffFrom: {
       type: String,
       default: '',
     },
 
-    logoffTo: {
+    logOffTo: {
       type: String,
       default: '',
     },
 
-    logoffType: {
+    logOffType: {
       type: String,
       default: '',
     },

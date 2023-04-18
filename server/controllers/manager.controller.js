@@ -1,37 +1,34 @@
 const UserGroups = require("../models/UserGroup.model");
 const Users = require("../models/user.model");
+const bcrypt = require("bcryptjs");
 require("dotenv").config();
 
 const ManagerController = {
-  //   createStaff: async (req, res) => {
-  //     try {
-  //       const { fullName, phone, email, staffId, avatar, groupsId, role } =
-  //         req.body;
+  createStaff: async (req, res) => {
+    try {
+      console.log(req.body);
+      const { fullName, email, slackId } = req.body;
 
-  //       const user = await Users.findOne({ email });
-  //       if (user)
-  //         return res.status(400).json({ msg: "The email already exists." });
-  //       let passwordHash = await bcrypt.hash("123456", 10);
+      const user = await Users.findOne({ email });
+      if (user)
+        return res.status(400).json({ msg: "The email already exists." });
+      let passwordHash = await bcrypt.hash("123456", 10);
 
-  //       const newUser = new Users({
-  //         fullName,
-  //         phone,
-  //         email,
-  //         staffId,
-  //         avatar,
-  //         groupsId,
-  //         role: "STAFF",
-  //         password: passwordHash,
-  //       });
+      const newUser = new Users({
+        fullName,
+        email,
+        slackId,
+        password: passwordHash,
+      });
 
-  //       // Save mongodb
-  //       await newUser.save();
+      // Save mongodb
+      await newUser.save();
 
-  //       res.json({ msg: "Create staff Successfully" });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   },
+      res.json({ msg: "Create staff Successfully" });
+    } catch (error) {
+      console.log(error);
+    }
+  },
   getListStaff: async (req, res) => {
     try {
       const staffs = await Users.find({ role: "Staff" }).sort({
@@ -57,8 +54,7 @@ const ManagerController = {
   },
   updateStaff: async (req, res) => {
     try {
-      const { fullName, phone, email, staffId, avatar, groupsId, role } =
-        req.body;
+      const { fullName, email, slackId } = req.body;
 
       const exist_staff = await Users.findById(req.params.id);
       if (!exist_staff)
@@ -68,12 +64,8 @@ const ManagerController = {
 
       const update_staff = {
         fullName,
-        phone,
         email,
-        staffId,
-        avatar,
-        groupsId,
-        role,
+        slackId,
         password: passwordHash,
       };
       await Users.findByIdAndUpdate({ _id: req.params.id }, update_staff);

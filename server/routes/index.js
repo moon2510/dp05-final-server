@@ -7,5 +7,5 @@ router.get("/", function (req, res, next) {
 });
 router.use("/admin", require("./user.route"));
 router.use("/profile", require("./profile.route"));
-
+router.use("/manager", require("./manager.route"));
 module.exports = router;

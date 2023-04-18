@@ -11,7 +11,6 @@ const WorkSpaceSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'channels',
-        default: [],
       },
     ],
 
@@ -19,7 +18,6 @@ const WorkSpaceSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'channels',
-        default: [],
       },
     ],
   },

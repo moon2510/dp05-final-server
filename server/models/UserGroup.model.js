@@ -13,7 +13,6 @@ const UserGroupSchema = new Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
-        default: [],
       },
     ],
 
@@ -21,7 +20,6 @@ const UserGroupSchema = new Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
-        default: [],
       },
     ],
   },

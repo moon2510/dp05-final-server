@@ -5,6 +5,12 @@ const ManagerController = require("../controllers/manager.controller");
 var router = express.Router();
 
 router.get("/getStaff", auth, authManager, ManagerController.getListStaff);
+router.get(
+  "/getOneStaff/:id",
+  auth,
+  authManager,
+  ManagerController.getOneStaff
+);
 router.post("/createStaff", auth, authManager, ManagerController.createStaff);
 router.patch(
   "/updateStaff/:id",

@@ -29,6 +29,14 @@ const ManagerController = {
       console.log(error);
     }
   },
+  getOneStaff: async (req, res) => {
+    try {
+      const staffs = await Users.findById(req.params.id);
+      res.send(staffs);
+    } catch (error) {
+      console.log(error);
+    }
+  },
   getListStaff: async (req, res) => {
     try {
       const staffs = await Users.find({ role: "Staff" }).sort({

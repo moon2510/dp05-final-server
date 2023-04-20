@@ -7,30 +7,20 @@ const WorkSpaceSchema = new mongoose.Schema(
       required: true,
     },
 
-    hrChannel:
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'channels',
-<<<<<<< Updated upstream
-      },
-    ],
-=======
+    hrChannel: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'channels',
     },
->>>>>>> Stashed changes
 
-    dayOffChannel: 
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'channels',
-<<<<<<< Updated upstream
-=======
-      },
+    dayOffChannel: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'channels',
+    },
 
     managers: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user',
->>>>>>> Stashed changes
       },
     ],
   },

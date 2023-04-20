@@ -1,54 +1,3 @@
-<<<<<<< Updated upstream
-const mongoose = require("mongoose");
-const { Role } = require("../constants/enum");
-const Schema = mongoose.Schema;
-
-const UserSchema = new Schema(
-  {
-    fullName: {
-      type: String,
-      default: "",
-    },
-
-    phone: {
-      type: String,
-      default: "",
-    },
-
-    email: {
-      type: String,
-      unique: true,
-      default: "",
-    },
-
-    password: {
-      type: String,
-      default: "",
-    },
-
-    slackId: {
-      type: String,
-      default: "",
-    },
-
-    avatar: {
-      type: String,
-      default: "",
-    },
-
-    groupsId: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "usergroups",
-      },
-    ],
-
-    role: {
-      type: String,
-      enum: Object.values(Role),
-      default: Role.STAFF,
-    },
-=======
 const Users = require('../models/user.model');
 const WorkSpace = require('../models/workSpace.model');
 require('dotenv').config();
@@ -80,7 +29,6 @@ const AdminController = {
     } catch (error) {
       console.log(error);
     }
->>>>>>> Stashed changes
   },
   getListManager: async (req, res) => {
     try {
@@ -98,9 +46,6 @@ const AdminController = {
       if (!exist_manager)
         return res.status(400).json({ msg: 'The manager doesnt exists.' });
 
-<<<<<<< Updated upstream
-module.exports = mongoose.model("User", UserSchema, "users");
-=======
       await Users.findOneAndDelete({ _id: req.params.id });
       res.json({ message: 'Manager deleted successfully.' });
     } catch (error) {
@@ -218,4 +163,3 @@ module.exports = mongoose.model("User", UserSchema, "users");
 };
 
 module.exports = AdminController;
->>>>>>> Stashed changes

@@ -10,14 +10,14 @@ const WorkSpaceSchema = new mongoose.Schema(
     hrChannel: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'channels',
+        ref: 'Channel',
       },
     ],
 
     dayOffChannel: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'channels',
+        ref: 'Channel',
       },
     ],
   },

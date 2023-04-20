@@ -25,4 +25,31 @@ router.delete(
   ManagerController.deleteStaff
 );
 
+/* GET users listing. */
+router.get("/getUserGroup", auth, authManager, ManagerController.getUserGroups);
+router.post(
+  "/createUserGroup",
+  auth,
+  authManager,
+  ManagerController.createUserGroup
+);
+router.patch(
+  "/updateUserGroup/:id",
+  auth,
+  authManager,
+  ManagerController.updateUserGroup
+);
+router.delete(
+  "/deleteUserGroup/:id",
+  auth,
+  authManager,
+  ManagerController.deleteUserGroup
+);
+router.get(
+  "/getOneUserGroup/:id",
+  auth,
+  authManager,
+  ManagerController.getOneUserGroup
+);
+router.get("/getStaffs", auth, authManager, ManagerController.getStaffs);
 module.exports = router;

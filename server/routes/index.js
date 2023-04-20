@@ -6,6 +6,7 @@ router.get("/", function (req, res, next) {
   res.render("index", { title: "Express" });
 });
 router.use("/admin", require("./user.route"));
+router.use("/manager", require("./manager.route"));
 router.use("/profile", require("./profile.route"));
 router.use("/manager", require("./manager.route"));
 module.exports = router;

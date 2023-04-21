@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 const ProfileController = {
     getProfile: async (req, res) => {
         try {
-            const userProfile = await UserSchema.findById(req.params.id)
+            const userProfile = await UserSchema.findById({_id: req.user._id});
             if(!userProfile) return res.status(400).json({ msg: 'Account does not exists!' });
 
             res.json(userProfile)
@@ -14,18 +14,18 @@ const ProfileController = {
     },
     updateProfile: async (req, res) => {
         try {
-            const {fullName, phone, password, slackId, avatar, groupsId } = req.body
+            const {fullName, phone, password, avatar } = req.body
 
-            const validUser = await UserSchema.findById(req.params.id)
-            if(!userProfile) return res.status(400).json({ msg: 'Account does not exists!' });
+            const validUser = await UserSchema.findById({_id: req.user._id})
+            if(!validUser) return res.status(400).json({ msg: 'Account does not exists!' });
 
             const passwordHash = await bcrypt.hash(password, 10);
 
             const userUpdate = {
-                fullName, phone, password: passwordHash, slackId, avatar, groupsId
+                fullName, phone, password: passwordHash, avatar
             }
 
-            await UserSchema.findByIdAndUpdate(req.params.id, userUpdate, {new: true})
+            await UserSchema.findByIdAndUpdate({_id: req.user._id}, userUpdate, {new: true})
 
             res.json({msg: 'update successfully!'})
 

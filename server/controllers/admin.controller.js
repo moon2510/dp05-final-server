@@ -89,21 +89,32 @@ const AdminController = {
   },
   getWorkSpace: async (req, res) => {
     try {
-      const workspace = await WorkSpace.find({});
-      // .populate({
-      //   path: 'hrChannel',
-      // })
+      const workspaces = await WorkSpace.find();
       // .populate({
       //   path: 'dayOffChannel',
       // });
-      res.status(200).json(workspace);
+      res.status(200).json(workspaces);
+      console.log(workspaces);
     } catch (error) {
       console.log(error);
     }
   },
+  // getWorkSpace: async (req, res) => {
+  //   try {
+  //     const workspace = await WorkSpace.find({ role: 'Manager' }).populate({
+  //       path: 'managers',
+  //     });
+  //     // .populate({
+  //     //   path: 'dayOffChannel',
+  //     // });
+  //     res.status(200).json(workspace);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // },
   createWorkSpace: async (req, res) => {
     try {
-      const { name, hrChannel, dayOffChannel } = req.body;
+      const { name } = req.body;
 
       const exist_workspace = await WorkSpace.findOne({ name });
       if (exist_workspace)
@@ -111,8 +122,9 @@ const AdminController = {
 
       const new_workspace = new WorkSpace({
         name,
-        hrChannel,
-        dayOffChannel,
+        hrChannel: [],
+        dayOffChannel: [],
+        managers: [],
       });
 
       await new_workspace.save();
@@ -136,7 +148,7 @@ const AdminController = {
   },
   updateWorkSpace: async (req, res) => {
     try {
-      const { name, hrChannel, dayOffChannel } = req.body;
+      const { name, managers } = req.body;
 
       const exist_workspace = await WorkSpace.findById(req.params.id);
       if (!exist_workspace)
@@ -144,8 +156,9 @@ const AdminController = {
 
       const update_workspace = {
         name,
-        hrChannel,
-        dayOffChannel,
+        hrChannel: [],
+        dayOffChannel: [],
+        managers,
       };
       await PostMessage.findByIdAndUpdate(
         { _id: req.params.id },

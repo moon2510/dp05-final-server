@@ -1,4 +1,5 @@
 const Users = require("../models/user.model");
+const RequestLogOffs = require("../models/requestLogoff.model");
 const UserGroups = require("../models/UserGroup.model");
 require("dotenv").config();
 // const Payments = require('../models/paymentModel')
@@ -93,6 +94,15 @@ const UserController = {
         });
 
       res.status(200).json(UserGroup);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  getRequest: async (req, res) => {
+    try {
+      const Request = await RequestLogOffs.find({});
+
+      res.status(200).json(Request);
     } catch (error) {
       console.log(error);
     }

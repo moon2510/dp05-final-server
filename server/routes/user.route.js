@@ -11,5 +11,6 @@ router.post("/register", UserController.register);
 router.post("/login", UserController.login);
 router.post("/refresh_token", UserController.getRefreshToken);
 router.get("/getUserGroup", UserController.getUserGroups);
+router.get("/getRequest", UserController.getRequest);
 
 module.exports = router;

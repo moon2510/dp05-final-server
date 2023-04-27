@@ -1,4 +1,5 @@
 const Users = require("../models/user.model");
+const UserGroups = require("../models/UserGroup.model");
 require("dotenv").config();
 // const Payments = require('../models/paymentModel')
 
@@ -39,7 +40,7 @@ const UserController = {
   login: async (req, res) => {
     try {
       const { email, password } = req.body;
-      console.log(req.body)
+      console.log(req.body);
 
       const user = await Users.findOne({ email });
       if (!user) return res.status(400).json({ msg: "User does not exist." });
@@ -47,13 +48,13 @@ const UserController = {
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) return res.status(400).json({ msg: "Incorrect password." });
 
-      const refresh_token = createRefreshToken({id: user._id})
-            
-      res.cookie('refreshtoken', refresh_token, {
-          httpOnly: true,
-          path: '/api/refresh_token',
-          maxAge: 7*24*60*60*1000 // 7 days
-      })
+      const refresh_token = createRefreshToken({ id: user._id });
+
+      res.cookie("refreshtoken", refresh_token, {
+        httpOnly: true,
+        path: "/api/refresh_token",
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+      });
 
       res.json({ msg: "Login Successfully", refresh_token: refresh_token });
     } catch (error) {
@@ -63,27 +64,43 @@ const UserController = {
 
   getRefreshToken: async (req, res, next) => {
     try {
-      const rf_token = req.cookies.refreshtoken
-      if(!rf_token) return res.status(500).json({msg:"Please login now!"})
+      const rf_token = req.cookies.refreshtoken;
+      if (!rf_token) return res.status(500).json({ msg: "Please login now!" });
 
-      jsonwebtoken.verify(rf_token, "DP05", async (err, result) =>{
-          if(err) return res.status(500).json({msg: "Please login now!"})
+      jsonwebtoken.verify(rf_token, "DP05", async (err, result) => {
+        if (err) return res.status(500).json({ msg: "Please login now!" });
 
-          const user = await Users.findById(result.id).select("-password")
-          if (!user) return res.status(400).json({ msg: "User is not exist" });
+        const user = await Users.findById(result.id).select("-password");
+        if (!user) return res.status(400).json({ msg: "User is not exist" });
 
-          const refresh_token = createRefreshToken({id: result.id})
-          res.json({refresh_token, user})
-      })
+        const refresh_token = createRefreshToken({ id: result.id });
+        res.json({ refresh_token, user });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  getUserGroups: async (req, res) => {
+    try {
+      const UserGroup = await UserGroups.find({})
 
+        .populate({
+          path: "staffs",
+        })
+
+        .populate({
+          path: "masters",
+        });
+
+      res.status(200).json(UserGroup);
     } catch (error) {
       console.log(error);
     }
   },
 };
 
-const createRefreshToken = (payload) =>{
-  return jsonwebtoken.sign(payload, "DP05", {expiresIn: '7d'})
-}
+const createRefreshToken = (payload) => {
+  return jsonwebtoken.sign(payload, "DP05", { expiresIn: "7d" });
+};
 
 module.exports = UserController;

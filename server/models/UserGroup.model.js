@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const UserGroupSchema = new Schema(
@@ -12,14 +12,14 @@ const UserGroupSchema = new Schema(
     staffs: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
+        ref: "users",
       },
     ],
 
     masters: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
+        ref: "users",
       },
     ],
   },
@@ -28,4 +28,4 @@ const UserGroupSchema = new Schema(
   }
 );
 
-module.exports = mongoose.model('UserGroup', UserGroupSchema, 'usergroups');
+module.exports = mongoose.model("UserGroup", UserGroupSchema, "usergroups");

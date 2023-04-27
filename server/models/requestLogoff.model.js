@@ -1,46 +1,34 @@
-const mongoose = require('mongoose');
-const { RequestSTT } = require('../constants/enum');
+const mongoose = require("mongoose");
+const { RequestSTT } = require("../constants/enum");
 const Schema = mongoose.Schema;
 
 const RequestLogOffSchema = new Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'users',
+      ref: "users",
     },
 
     masters: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
-      },
-    ],
-
-    approval: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
+        ref: "users",
       },
     ],
 
     logOffFrom: {
       type: String,
-      default: '',
+      default: "",
     },
 
     logOffTo: {
       type: String,
-      default: '',
+      default: "",
     },
 
     logOffType: {
       type: String,
-      default: '',
-    },
-
-    contentLog: {
-      type: String,
-      default: '',
+      default: "",
     },
 
     quantity: {
@@ -50,13 +38,12 @@ const RequestLogOffSchema = new Schema(
 
     reason: {
       type: String,
-      default: '',
+      default: "",
     },
 
     status: {
       type: String,
-      enum: Object.values(RequestSTT),
-      default: '',
+      default: "PENDING",
     },
   },
   {
@@ -65,7 +52,7 @@ const RequestLogOffSchema = new Schema(
 );
 
 module.exports = mongoose.model(
-  'RequestLogOff',
+  "RequestLogOff",
   RequestLogOffSchema,
-  'requestlogoffs'
+  "requestlogoffs"
 );

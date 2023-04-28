@@ -6,20 +6,20 @@ const RequestLogOffSchema = new Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'users',
+      ref: 'User',
     },
 
     masters: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
+        ref: 'User',
       },
     ],
 
     approval: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
+        ref: 'User',
       },
     ],
 

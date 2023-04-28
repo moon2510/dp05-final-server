@@ -1,9 +1,7 @@
-const UserGroups = require("../models/UserGroup.model");
-const Users = require("../models/user.model");
-const bcrypt = require("bcryptjs");
-const userModel = require("../models/user.model");
-require("dotenv").config();
-
+const UserGroups = require('../models/UserGroup.model');
+const Users = require('../models/user.model');
+const bcrypt = require('bcryptjs');
+const RequestLogOffs = require('../models/requestLogoff.model');
 const ManagerController = {
   createStaff: async (req, res) => {
     try {
@@ -12,8 +10,8 @@ const ManagerController = {
 
       const user = await Users.findOne({ email });
       if (user)
-        return res.status(400).json({ msg: "The email already exists." });
-      let passwordHash = await bcrypt.hash("123456", 10);
+        return res.status(400).json({ msg: 'The email already exists.' });
+      let passwordHash = await bcrypt.hash('123456', 10);
 
       const newUser = new Users({
         fullName,
@@ -25,7 +23,7 @@ const ManagerController = {
       // Save mongodb
       await newUser.save();
 
-      res.json({ msg: "Create staff Successfully" });
+      res.json({ msg: 'Create staff Successfully' });
     } catch (error) {
       console.log(error);
     }
@@ -35,11 +33,11 @@ const ManagerController = {
       const UserGroup = await UserGroups.find({})
 
         .populate({
-          path: "staffs",
+          path: 'staffs',
         })
 
         .populate({
-          path: "masters",
+          path: 'masters',
         });
 
       res.status(200).json(UserGroup);
@@ -52,11 +50,11 @@ const ManagerController = {
       const userGroup = await UserGroups.findById(req.params.id)
 
         .populate({
-          path: "staffs",
+          path: 'staffs',
         })
 
         .populate({
-          path: "masters",
+          path: 'masters',
         });
       res.send(userGroup);
     } catch (error) {
@@ -70,7 +68,7 @@ const ManagerController = {
       const exist_usergroup = await UserGroups.findOne({ name });
 
       if (exist_usergroup)
-        return res.status(400).json({ msg: "The UserGroup already exists." });
+        return res.status(400).json({ msg: 'The UserGroup already exists.' });
 
       const new_usergroup = new UserGroups({
         name,
@@ -82,7 +80,7 @@ const ManagerController = {
 
       await new_usergroup.save();
 
-      res.json({ msg: "Create UserGroup Successfully" });
+      res.json({ msg: 'Create UserGroup Successfully' });
     } catch (error) {
       console.log(error);
     }
@@ -95,23 +93,35 @@ const ManagerController = {
       console.log(error);
     }
   },
+
+  // getListStaff: async (req, res) => {
+  //   try {
+  //     const staffs = await Users.find({ role: 'Staff' }).sort({
+  //       fullName: 1,
+  //     });
+  //     res.send(staffs);
+  //     console.log(staffs);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // },
   deleteUserGroup: async (req, res) => {
     try {
       const exist_usergroup = await UserGroups.findById(req.params.id);
 
       if (exist_usergroup)
-        return res.status(400).json({ msg: "The UserGroup already exists." });
+        return res.status(400).json({ msg: 'The UserGroup already exists.' });
 
       await exist_usergroup.findOneAndDelete({ _id: req.params.id });
 
-      res.json({ message: "UserGroup deleted successfully." });
+      res.json({ message: 'UserGroup deleted successfully.' });
     } catch (error) {
       console.log(error);
     }
   },
   getListStaff: async (req, res) => {
     try {
-      const staffs = await Users.find({ role: "Staff" }).sort({
+      const staffs = await Users.find({ role: 'Staff' }).sort({
         fullName: 1,
       });
       res.send(staffs);
@@ -124,10 +134,10 @@ const ManagerController = {
     try {
       const exist_staff = await Users.findById(req.params.id);
       if (!exist_staff)
-        return res.status(400).json({ msg: "The staff doesnt exists." });
+        return res.status(400).json({ msg: 'The staff doesnt exists.' });
 
       await Users.findOneAndDelete({ _id: req.params.id });
-      res.json({ message: "Staff deleted successfully." });
+      res.json({ message: 'Staff deleted successfully.' });
     } catch (error) {
       console.log(error);
     }
@@ -138,9 +148,9 @@ const ManagerController = {
 
       const exist_staff = await Users.findById(req.params.id);
       if (!exist_staff)
-        return res.status(400).json({ msg: "The staff doesnt exists." });
+        return res.status(400).json({ msg: 'The staff doesnt exists.' });
 
-      let passwordHash = await bcrypt.hash("123456", 10);
+      let passwordHash = await bcrypt.hash('123456', 10);
 
       const update_staff = {
         fullName,
@@ -150,7 +160,7 @@ const ManagerController = {
       };
       await Users.findByIdAndUpdate({ _id: req.params.id }, update_staff);
 
-      res.json({ message: "Staff Updated successfully." });
+      res.json({ message: 'Staff Updated successfully.' });
     } catch (error) {
       console.log(error);
     }
@@ -178,15 +188,42 @@ const ManagerController = {
         update_usergroup
       );
 
-      res.json({ message: "UserGroup Updated successfully." });
+      res.json({ message: 'UserGroup Updated successfully.' });
     } catch (error) {
       console.log(error);
     }
   },
   getStaffs: async (req, res) => {
     try {
-      const Staff = await userModel.find({ role: "Staff" });
+      const Staff = await Users.find({ role: 'Staff' });
       res.json(Staff);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  getHistoryDayOff: async (req, res) => {
+    try {
+      const HistoryDayOff = await RequestLogOffs.find({
+        status: 'PENDING',
+        // });
+      }).populate({
+        path: 'user',
+      });
+
+      res.status(200).json(HistoryDayOff);
+      console.log(HistoryDayOff);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+  getUserById: async (req, res) => {
+    try {
+      const userProfile = await Users.findById(req.params.id);
+      if (!userProfile)
+        return res.status(400).json({ msg: 'Account does not exists!' });
+
+      res.json(userProfile);
+      console.log(userProfile);
     } catch (error) {
       console.log(error);
     }

@@ -1,6 +1,5 @@
 const Users = require('../models/user.model');
 const WorkSpace = require('../models/workSpace.model');
-require('dotenv').config();
 const bcrypt = require('bcryptjs');
 
 const AdminController = {
